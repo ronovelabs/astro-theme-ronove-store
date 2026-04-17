@@ -1,0 +1,43 @@
+---
+import type { NavItem } from '../types';
+
+const navItems: NavItem[] = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Productos', href: '/productos' },
+  { label: 'Nosotros', href: '/nosotros' },
+  { label: 'Contacto', href: '/contacto' },
+];
+---
+
+<header class="bg-white shadow-sm sticky top-0 z-50">
+  <div class="container-custom">
+    <div class="flex justify-between items-center h-16">
+      <!-- Logo -->
+      <a href="/" class="text-2xl font-bold text-primary-600">
+        Ronove Store
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-8">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <!-- Cart Button -->
+      <button class="relative p-2 text-gray-700 hover:text-primary-600 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+        </svg>
+        <span class="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+          0
+        </span>
+      </button>
+    </div>
+  </div>
+</header>

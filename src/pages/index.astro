@@ -1,0 +1,107 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Hero from '../components/Hero.astro';
+import ProductCard from '../components/ProductCard.astro';
+import type { Product } from '../types';
+
+// Productos de ejemplo
+const featuredProducts: Product[] = [
+  {
+    id: '1',
+    name: 'Producto Ejemplo 1',
+    description: 'Descripción del producto de ejemplo para mostrar la estructura del card.',
+    price: 99900,
+    image: 'https://via.placeholder.com/400x400/3b82f6/ffffff?text=Producto+1',
+    category: 'Categoría A',
+    brand: 'Marca X',
+    inStock: true,
+  },
+  {
+    id: '2',
+    name: 'Producto Ejemplo 2',
+    description: 'Otro producto de ejemplo con características destacadas.',
+    price: 149900,
+    image: 'https://via.placeholder.com/400x400/10b981/ffffff?text=Producto+2',
+    category: 'Categoría B',
+    brand: 'Marca Y',
+    inStock: true,
+  },
+  {
+    id: '3',
+    name: 'Producto Ejemplo 3',
+    description: 'Un tercer producto para completar la visualización.',
+    price: 79900,
+    image: 'https://via.placeholder.com/400x400/f59e0b/ffffff?text=Producto+3',
+    category: 'Categoría A',
+    inStock: false,
+  },
+];
+---
+
+<Layout title="Ronove Store - Tu Tienda Online">
+  <Header />
+  
+  <main>
+    <Hero />
+    
+    <!-- Featured Products -->
+    <section class="py-16">
+      <div class="container-custom">
+        <h2 class="text-3xl font-bold text-center mb-12">Productos Destacados</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {featuredProducts.map((product) => (
+            <ProductCard product={product} />
+          ))}
+        </div>
+        
+        <div class="text-center mt-12">
+          <a href="/productos" class="btn-primary text-lg px-8 py-3">
+            Ver Todos los Productos
+          </a>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Features -->
+    <section class="bg-gray-50 py-16">
+      <div class="container-custom">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="text-center">
+            <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">Calidad Garantizada</h3>
+            <p class="text-gray-600">Productos seleccionados con los más altos estándares.</p>
+          </div>
+          
+          <div class="text-center">
+            <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">Envío Rápido</h3>
+            <p class="text-gray-600">Entregas en 24-48h en principales ciudades.</p>
+          </div>
+          
+          <div class="text-center">
+            <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">Soporte 24/7</h3>
+            <p class="text-gray-600">Estamos aquí para ayudarte cuando nos necesites.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</Layout>

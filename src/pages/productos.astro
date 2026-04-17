@@ -1,0 +1,65 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ProductCard from '../components/ProductCard.astro';
+import type { Product } from '../types';
+
+const products: Product[] = [
+  {
+    id: '1',
+    name: 'Producto Ejemplo 1',
+    description: 'Descripción del producto de ejemplo para mostrar la estructura del card.',
+    price: 99900,
+    image: 'https://via.placeholder.com/400x400/3b82f6/ffffff?text=Producto+1',
+    category: 'Categoría A',
+    brand: 'Marca X',
+    inStock: true,
+  },
+  {
+    id: '2',
+    name: 'Producto Ejemplo 2',
+    description: 'Otro producto de ejemplo con características destacadas.',
+    price: 149900,
+    image: 'https://via.placeholder.com/400x400/10b981/ffffff?text=Producto+2',
+    category: 'Categoría B',
+    brand: 'Marca Y',
+    inStock: true,
+  },
+  {
+    id: '3',
+    name: 'Producto Ejemplo 3',
+    description: 'Un tercer producto para completar la visualización.',
+    price: 79900,
+    image: 'https://via.placeholder.com/400x400/f59e0b/ffffff?text=Producto+3',
+    category: 'Categoría A',
+    brand: 'Marca X',
+    inStock: false,
+  },
+];
+---
+
+<Layout title="Productos - Ronove Store">
+  <Header />
+  
+  <main class="flex-grow">
+    <div class="bg-gray-900 text-white py-12">
+      <div class="container-custom">
+        <h1 class="text-4xl font-bold">Nuestros Productos</h1>
+        <p class="text-gray-300 mt-2">Explora nuestra colección completa</p>
+      </div>
+    </div>
+    
+    <section class="py-12">
+      <div class="container-custom">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {products.map((product) => (
+            <ProductCard product={product} />
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</Layout>

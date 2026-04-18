@@ -1,0 +1,42 @@
+---
+// Swiper Wrapper - Client-side only
+interface Props {
+  className?: string;
+  id: string;
+}
+
+const { className = '', id } = Astro.props;
+---
+
+<div id={`swiper-${id}`} class={`swiper ${className}`}>
+  <slot />
+</div>
+
+<div class={`swiper-pagination swiper-pagination-${id}`}></div>
+
+<script define:vars={{ id }}>
+  // Dynamically import Swiper on client side
+  const initSwiper = async () => {
+    const { default: Swiper } = await import('swiper');
+    const { Navigation, Pagination, Autoplay, EffectFade } = await import('swiper/modules');
+    
+    new Swiper(`#swiper-${id}`, {
+      modules: [Navigation, Pagination, Autoplay, EffectFade],
+      slidesPerView: 1,
+      loop: true,
+      effect: 'fade',
+      fadeEffect: { crossFade: true },
+      autoplay: { delay: 5000, disableOnInteraction: false },
+      pagination: { el: `.swiper-pagination-${id}`, clickable: true },
+    });
+  };
+  
+  initSwiper();
+</script>
+
+<style>
+  @import 'swiper/css';
+  @import 'swiper/css/navigation';
+  @import 'swiper/css/pagination';
+  @import 'swiper/css/effect-fade';
+</style>

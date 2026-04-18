@@ -1,0 +1,101 @@
+---
+const products = [
+  { id: '1', name: 'CAMISA', description: 'Camisa oversize negra', price: 119000, originalPrice: 149000, discount: 25, isNew: true, image: 'https://images.unsplash.com/photo-1618354691373-d9c64f3c1d3f?w=400&q=80', category: 'Camisas', brand: 'RONOVE', inStock: true },
+  { id: '2', name: 'CAMISA', description: 'Camisa oversize negra', price: 119000, originalPrice: 149000, discount: 25, isNew: true, image: 'https://images.unsplash.com/photo-1618354691373-d9c64f3c1d3f?w=400&q=80', category: 'Camisas', brand: 'RONOVE', inStock: true },
+  { id: '3', name: 'CAMISA', description: 'Camisa oversize negra', price: 119000, originalPrice: 149000, discount: 25, isNew: true, image: 'https://images.unsplash.com/photo-1618354691373-d9c64f3c1d3f?w=400&q=80', category: 'Camisas', brand: 'RONOVE', inStock: true },
+  { id: '4', name: 'CAMISA', description: 'Camisa oversize negra', price: 119000, originalPrice: 149000, discount: 25, isNew: true, image: 'https://images.unsplash.com/photo-1618354691373-d9c64f3c1d3f?w=400&q=80', category: 'Camisas', brand: 'RONOVE', inStock: true },
+];
+---
+
+<section class="py-16 bg-white" aria-label="Product carousel">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between mb-8">
+      <h2 class="text-2xl md:text-3xl font-bold text-black">NEW DROPS</h2>
+      <div class="flex items-center gap-4">
+        <div class="flex gap-2">
+          <button class="product-prev w-10 h-10 border border-black flex items-center justify-center hover:bg-black hover:text-white transition-colors" aria-label="Anterior">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <button class="product-next w-10 h-10 border border-black flex items-center justify-center hover:bg-black hover:text-white transition-colors" aria-label="Siguiente">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+        <a href="/productos" class="bg-black text-white px-6 py-2 text-sm font-medium hover:bg-gray-800 transition-colors">VER TODO</a>
+      </div>
+    </div>
+    
+    <div class="swiper product-carousel">
+      <div class="swiper-wrapper">
+        {products.map((product) => (
+          <div class="swiper-slide">
+            <div class="group relative">
+              <div class="absolute top-2 left-2 z-10 flex flex-col gap-1">
+                {product.discount && (
+                  <span class="bg-red-600 text-white text-xs font-bold px-2 py-1">{product.discount}%</span>
+                )}
+                {product.isNew && (
+                  <span class="bg-black text-white text-xs font-bold px-2 py-1">NUEVO</span>
+                )}
+              </div>
+              
+              <button class="absolute top-2 right-2 z-10 p-2 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-gray-100" aria-label="Añadir a favoritos">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+              </button>
+
+              <div class="relative aspect-[3/4] bg-gray-100 overflow-hidden">
+                <div class="absolute inset-0 bg-gray-200 animate-pulse"></div>
+                <img src={product.image} alt={product.name} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" onload="this.previousElementSibling.style.display='none'" />
+              </div>
+
+              <div class="pt-3">
+                <h3 class="font-bold text-sm">{product.name}</h3>
+                <p class="text-xs text-gray-500 mb-2">{product.description}</p>
+                
+                <div class="flex gap-1 mb-2">
+                  {['XS', 'S', 'M', 'L', 'XL'].map((size) => (
+                    <button class="w-6 h-6 text-[10px] border border-gray-300 hover:border-black hover:bg-black hover:text-white transition-colors">{size}</button>
+                  ))}
+                </div>
+                
+                <div class="flex items-center gap-2 mb-3">
+                  {product.originalPrice && (
+                    <span class="text-gray-400 line-through text-sm">${product.originalPrice.toLocaleString('es-CO')}</span>
+                  )}
+                  <span class="text-red-600 font-bold">${product.price.toLocaleString('es-CO')}</span>
+                </div>
+                
+                <button class="w-full bg-black text-white py-2 text-sm font-medium hover:bg-gray-800 transition-colors">AGREGAR</button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  if (typeof window !== 'undefined') {
+    import('swiper').then(({ default: Swiper }) => {
+      import('swiper/modules').then(({ Navigation }) => {
+        new Swiper('.product-carousel', {
+          modules: [Navigation],
+          slidesPerView: 1,
+          spaceBetween: 16,
+          navigation: {
+            nextEl: '.product-next',
+            prevEl: '.product-prev',
+          },
+          breakpoints: {
+            640: { slidesPerView: 2, spaceBetween: 16 },
+            1024: { slidesPerView: 4, spaceBetween: 24 },
+          },
+        });
+      });
+    });
+  }
+</script>
+
+<style>
+  @import 'swiper/css';
+</style>

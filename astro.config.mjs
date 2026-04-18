@@ -8,5 +8,10 @@ export default defineConfig({
   site: 'https://ronove.store',
   build: {
     format: 'directory'
+  },
+  vite: {
+    ssr: {
+      noExternal: ['swiper']
+    }
   }
 });

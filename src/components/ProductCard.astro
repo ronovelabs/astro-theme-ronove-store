@@ -6,31 +6,93 @@ interface Props {
 }
 
 const { product } = Astro.props;
+
+const sizes = ['XS', 'S', 'M', 'L', 'XL'];
+const colors = [
+  { name: 'Negro', class: 'bg-black' },
+  { name: 'Blanco', class: 'bg-white border border-gray-300' },
+  { name: 'Gris', class: 'bg-gray-500' },
+];
 ---
 
-<div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow">
-  <div class="aspect-w-1 aspect-h-1 bg-gray-200">
+<div class="group relative">
+  <!-- Badges -->
+  <div class="absolute top-2 left-2 z-10 flex flex-col gap-1">
+    {product.discount && (
+      <span class="bg-red-600 text-white text-xs font-bold px-2 py-1">
+        {product.discount}%
+      </span>
+    )}
+    {product.isNew && (
+      <span class="bg-black text-white text-xs font-bold px-2 py-1">
+        NUEVO
+      </span>
+    )}
+  </div>
+
+  <!-- Wishlist -->
+  <button 
+    class="absolute top-2 right-2 z-10 p-2 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-gray-100"
+    aria-label="Añadir a favoritos"
+  >
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+    </svg>
+  </button>
+
+  <!-- Image -->
+  <div class="relative aspect-[3/4] bg-gray-100 overflow-hidden">
+    <!-- Skeleton -->
+    <div class="absolute inset-0 bg-gray-200 animate-pulse"></div>
+    
     <img
       src={product.image}
       alt={product.name}
-      class="w-full h-64 object-cover"
+      class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
       loading="lazy"
+      onload="this.previousElementSibling.style.display='none'"
     />
   </div>
-  <div class="p-4">
-    <p class="text-sm text-primary-600 font-medium">{product.category}</p>
-    <h3 class="text-lg font-semibold text-gray-900 mt-1">{product.name}</h3>
-    <p class="text-gray-600 text-sm mt-2 line-clamp-2">{product.description}</p>
-    <div class="mt-4 flex items-center justify-between">
-      <span class="text-2xl font-bold text-gray-900">
+
+  <!-- Info -->
+  <div class="pt-3">
+    <h3 class="font-bold text-sm">{product.name}</h3>
+    <p class="text-xs text-gray-500 mb-2">{product.description}</p>
+    
+    <!-- Sizes -->
+    <div class="flex gap-1 mb-2">
+      {sizes.map((size) => (
+        <button class="w-6 h-6 text-[10px] border border-gray-300 hover:border-black hover:bg-black hover:text-white transition-colors">
+          {size}
+        </button>
+      ))}
+    </div>
+    
+    <!-- Colors -->
+    <div class="flex gap-1 mb-3">
+      {colors.map((color) => (
+        <button 
+          class={`w-5 h-5 rounded-full ${color.class} border border-gray-200 hover:ring-2 hover:ring-black transition-all`}
+          aria-label={color.name}
+        />
+      ))}
+    </div>
+    
+    <!-- Price -->
+    <div class="flex items-center gap-2 mb-3">
+      {product.originalPrice && (
+        <span class="text-gray-400 line-through text-sm">
+          ${product.originalPrice.toLocaleString('es-CO')}
+        </span>
+      )}
+      <span class="text-red-600 font-bold">
         ${product.price.toLocaleString('es-CO')}
       </span>
-      <button
-        class="btn-primary"
-        disabled={!product.inStock}
-      >
-        {product.inStock ? 'Agregar' : 'Agotado'}
-      </button>
     </div>
+    
+    <!-- Add button -->
+    <button class="w-full bg-black text-white py-2 text-sm font-medium hover:bg-gray-800 transition-colors">
+      AGREGAR
+    </button>
   </div>
 </div>

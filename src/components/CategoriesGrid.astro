@@ -1,0 +1,56 @@
+---
+// Categories Grid
+const categories = [
+  {
+    id: 'hombre',
+    name: 'HOMBRE',
+    image: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?w=600&q=80',
+    href: '/hombre',
+  },
+  {
+    id: 'mujer',
+    name: 'MUJER',
+    image: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&q=80',
+    href: '/mujer',
+  },
+  {
+    id: 'unix',
+    name: 'UNIX',
+    image: 'https://images.unsplash.com/photo-1552374196-1ab2a1c593e6?w=600&q=80',
+    href: '/unix',
+  },
+];
+---
+
+<section class="py-16 bg-gray-50" aria-label="Categorías">
+  <div class="container-custom">
+    <h2 class="text-2xl md:text-3xl font-bold text-black text-center mb-12">EXPLORA POR CATEGORÍA</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {categories.map((category) => (
+        <a href={category.href} class="group relative h-[400px] overflow-hidden">
+          <!-- Skeleton -->
+          <div class="absolute inset-0 bg-gray-300 animate-pulse"></div>
+          
+          <img
+            src={category.image}
+            alt={category.name}
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            loading="lazy"
+            onload="this.previousElementSibling.style.display='none'"
+          />
+          
+          <!-- Overlay -->
+          <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors"></div>
+          
+          <!-- Text -->
+          <div class="absolute inset-0 flex items-center justify-center">
+            <span class="text-white text-2xl md:text-3xl font-bold tracking-wider">
+              {category.name}
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

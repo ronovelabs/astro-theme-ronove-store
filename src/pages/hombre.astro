@@ -1,0 +1,72 @@
+---
+import TopBar from '../components/TopBar.astro';
+import HeaderV2 from '../components/HeaderV2.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import CategoryFilter from '../components/CategoryFilter.astro';
+import FilterBar from '../components/FilterBar.astro';
+import ProductCard from '../components/ProductCard.astro';
+import FooterV2 from '../components/FooterV2.astro';
+import type { Product } from '../types';
+
+const breadcrumbItems = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Hombre', href: '/hombre' },
+];
+
+const products: Product[] = [
+  { id: '1', name: 'CAMISA', description: 'Camisa oversize negra', price: 119000, originalPrice: 149000, discount: 25, isNew: true, image: 'https://images.unsplash.com/photo-1618354691373-d9c64f3c1d3f?w=400&q=80', category: 'Camisas', brand: 'RONOVE', inStock: true },
+  { id: '2', name: 'CAMISA', description: 'Camisa oversize negra', price: 119000, originalPrice: 149000, discount: 25, isNew: true, image: 'https://images.unsplash.com/photo-1618354691373-d9c64f3c1d3f?w=400&q=80', category: 'Camisas', brand: 'RONOVE', inStock: true },
+  { id: '3', name: 'CAMISA', description: 'Camisa oversize negra', price: 119000, originalPrice: 149000, discount: 25, isNew: true, image: 'https://images.unsplash.com/photo-1618354691373-d9c64f3c1d3f?w=400&q=80', category: 'Camisas', brand: 'RONOVE', inStock: true },
+  { id: '4', name: 'CAMISA', description: 'Camisa oversize negra', price: 119000, originalPrice: 149000, discount: 25, isNew: true, image: 'https://images.unsplash.com/photo-1618354691373-d9c64f3c1d3f?w=400&q=80', category: 'Camisas', brand: 'RONOVE', inStock: true },
+  { id: '5', name: 'CAMISA', description: 'Camisa oversize negra', price: 119000, originalPrice: 149000, discount: 25, isNew: true, image: 'https://images.unsplash.com/photo-1618354691373-d9c64f3c1d3f?w=400&q=80', category: 'Camisas', brand: 'RONOVE', inStock: true },
+  { id: '6', name: 'CAMISA', description: 'Camisa oversize negra', price: 119000, originalPrice: 149000, discount: 25, isNew: true, image: 'https://images.unsplash.com/photo-1618354691373-d9c64f3c1d3f?w=400&q=80', category: 'Camisas', brand: 'RONOVE', inStock: true },
+  { id: '7', name: 'CAMISA', description: 'Camisa oversize negra', price: 119000, originalPrice: 149000, discount: 25, isNew: true, image: 'https://images.unsplash.com/photo-1618354691373-d9c64f3c1d3f?w=400&q=80', category: 'Camisas', brand: 'RONOVE', inStock: true },
+  { id: '8', name: 'CAMISA', description: 'Camisa oversize negra', price: 119000, originalPrice: 149000, discount: 25, isNew: true, image: 'https://images.unsplash.com/photo-1618354691373-d9c64f3c1d3f?w=400&q=80', category: 'Camisas', brand: 'RONOVE', inStock: true },
+];
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hombre - RONOVE</title>
+  <meta name="description" content="Ropa para hombre con estilo único. Envío gratis en compras superiores a $50.000.">
+</head>
+<body class="min-h-screen flex flex-col">
+  <TopBar />
+  <HeaderV2 />
+  
+  <main class="flex-grow">
+    <Breadcrumb items={breadcrumbItems} />
+    
+    <div class="py-8 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-3xl font-bold mb-2">HOMBRE</h1>
+        <p class="text-gray-600 text-sm">ROPA PARA HOMBRE CON ESTILO ÚNICO</p>
+      </div>
+    </div>
+    
+    <CategoryFilter />
+    <FilterBar />
+    
+    <section class="py-8">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {products.map((product) => (
+            <ProductCard product={product} />
+          ))}
+        </div>
+        
+        <div class="mt-12 text-center">
+          <button class="bg-black text-white px-8 py-3 text-sm font-medium hover:bg-gray-800 transition-colors">
+            CARGAR MÁS
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <FooterV2 />
+</body>
+</html>

@@ -1,0 +1,22 @@
+---
+const categories = [
+  { id: 'camisas', name: 'CAMISAS', image: 'https://images.unsplash.com/photo-1618354691373-d9c64f3c1d3f?w=300&q=80', href: '/hombre/camisas' },
+  { id: 'pantalones', name: 'PANTALONES', image: 'https://images.unsplash.com/photo-1542272617-08f086302542?w=300&q=80', href: '/hombre/pantalones' },
+  { id: 'busos', name: 'BUSOS', image: 'https://images.unsplash.com/photo-1556906781-9a412961c28c?w=300&q=80', href: '/hombre/busos' },
+];
+---
+
+<section class="py-8 bg-white border-b border-gray-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-wrap justify-center gap-8">
+      {categories.map((cat) => (
+        <a href={cat.href} class="group flex flex-col items-center">
+          <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-transparent group-hover:border-black transition-all">
+            <img src={cat.image} alt={cat.name} class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" />
+          </div>
+          <span class="mt-3 text-sm font-bold text-gray-900 group-hover:text-black">{cat.name}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

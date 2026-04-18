@@ -1,0 +1,22 @@
+---
+interface Props {
+  images: string[];
+}
+
+const { images } = Astro.props;
+---
+
+<div class="grid grid-cols-2 gap-4">
+  {images.map((image, index) => (
+    <div class="relative aspect-square bg-gray-100 overflow-hidden">
+      <div class="absolute inset-0 bg-gray-200 animate-pulse" id={`skeleton-${index}`}></div>
+      <img
+        src={image}
+        alt={`Producto vista ${index + 1}`}
+        class="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-500 cursor-zoom-in"
+        loading={index < 2 ? "eager" : "lazy"}
+        onload={`document.getElementById('skeleton-${index}').style.display='none'`}
+      />
+    </div>
+  ))}
+</div>

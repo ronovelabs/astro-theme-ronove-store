@@ -1,0 +1,89 @@
+---
+import TopBar from '../../components/TopBar.astro';
+import HeaderV2 from '../../components/HeaderV2.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ProductGallery from '../../components/ProductGallery.astro';
+import ProductPurchasePanel from '../../components/ProductPurchasePanel.astro';
+import ProductAccordion from '../../components/ProductAccordion.astro';
+import ProductCarousel from '../../components/ProductCarousel.astro';
+import FooterV2 from '../../components/FooterV2.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { id: 'camisa-oversize-negra' } },
+  ];
+}
+
+const { id } = Astro.params;
+
+const breadcrumbItems = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Hombre', href: '/hombre' },
+  { label: 'Camisas', href: '/hombre/camisas' },
+  { label: 'Camisa Oversize', href: `/producto/${id}` },
+];
+
+const product = {
+  id: '1',
+  name: 'CAMISA',
+  description: 'Camisa oversize negra',
+  price: 119000,
+  originalPrice: 149000,
+  discount: 25,
+  isNew: true,
+  image: 'https://images.unsplash.com/photo-1618354691373-d9c64f3c1d3f?w=400&q=80',
+  category: 'Camisas',
+  brand: 'RONOVE',
+  inStock: true,
+};
+
+const galleryImages = [
+  'https://images.unsplash.com/photo-1618354691373-d9c64f3c1d3f?w=600&q=80',
+  'https://images.unsplash.com/photo-1556906781-9a412961c28c?w=600&q=80',
+  'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&q=80',
+  'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&q=80',
+  'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80',
+  'https://images.unsplash.com/photo-1552374196-1ab2a1c593e6?w=600&q=80',
+];
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{product.name} - RONOVE</title>
+  <meta name="description" content={`${product.description}. Compra ahora en RONOVE con envío gratis.`}>
+</head>
+<body class="min-h-screen flex flex-col">
+  <TopBar />
+  <HeaderV2 />
+  
+  <main class="flex-grow">
+    <Breadcrumb items={breadcrumbItems} />
+    
+    <section class="py-8">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <!-- Gallery -->
+          <div>
+            <ProductGallery images={galleryImages} />
+          </div>
+          
+          <!-- Purchase Panel -->
+          <div>
+            <ProductPurchasePanel product={product} />
+            
+            <ProductAccordion />
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Related Products -->
+    <ProductCarousel title="NEW DROPS" showViewAll={true} />
+  </main>
+  
+  <FooterV2 />
+</body>
+</html>

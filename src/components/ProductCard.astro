@@ -42,8 +42,7 @@ const colors = [
 
   <!-- Image -->
   <div class="relative aspect-[3/4] bg-gray-100 overflow-hidden">
-    <!-- Skeleton -->
-    <div class="absolute inset-0 bg-gray-200 animate-pulse"></div>
+    <div class="absolute inset-0 bg-gray-200 animate-pulse skeleton-loader"></div>
     
     <img
       src={product.image}
@@ -57,12 +56,12 @@ const colors = [
   <!-- Info -->
   <div class="pt-3">
     <h3 class="font-bold text-sm">{product.name}</h3>
-    <p class="text-xs text-gray-500 mb-2">{product.description}</p>
+    <p class="text-xs text-gray-500 mb-2 truncate">{product.description}</p>
     
     <!-- Sizes -->
     <div class="flex gap-1 mb-2">
       {sizes.map((size) => (
-        <button class="w-6 h-6 text-[10px] border border-gray-300 hover:border-black hover:bg-black hover:text-white transition-colors">
+        <button class="w-6 h-6 text-[10px] border border-gray-300 hover:border-black hover:bg-black hover:text-white transition-colors flex items-center justify-center">
           {size}
         </button>
       ))}
@@ -96,3 +95,9 @@ const colors = [
     </button>
   </div>
 </div>
+
+<style>
+  .skeleton-loader {
+    z-index: 1;
+  }
+</style>

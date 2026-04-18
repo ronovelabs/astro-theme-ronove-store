@@ -1,0 +1,74 @@
+---
+const accordionItems = [
+  {
+    title: 'DETALLE',
+    content: 'Camisa oversize confeccionada en algodón 100%. Corte holgado para mayor comodidad. Ideal para uso casual o deportivo.'
+  },
+  {
+    title: 'CUIDADO DE LA PRENDA',
+    content: 'Lavar a máquina con agua fría. No usar blanqueador. Secar en secadora a baja temperatura. Planchar a temperatura media.'
+  },
+  {
+    title: 'ENVÍO',
+    content: 'Envío gratis en compras superiores a $50.000. Entrega en 24-48h en principales ciudades. Devoluciones gratuitas dentro de los primeros 30 días.'
+  },
+];
+---
+
+<div class="border-t border-gray-200">
+  {accordionItems.map((item, index) => (
+    <div class="border-b border-gray-200">
+      <button 
+        class="w-full py-4 flex items-center justify-between text-left font-medium hover:text-gray-600 transition-colors accordion-trigger"
+        data-index={index}
+        aria-expanded="false"
+      >
+        <span>{item.title}</span>
+        <svg 
+          class="w-5 h-5 transform transition-transform accordion-icon" 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </button>
+      
+      <div 
+        class="max-h-0 overflow-hidden transition-all duration-300 accordion-content"
+        data-index={index}
+      >
+        <div class="pb-4 text-gray-600 text-sm">
+          {item.content}
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
+<script>
+  document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const index = trigger.getAttribute('data-index');
+      const content = document.querySelector(`.accordion-content[data-index="${index}"]`);
+      const icon = trigger.querySelector('.accordion-icon');
+      const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+      
+      // Close all
+      document.querySelectorAll('.accordion-content').forEach(c => {
+        c.style.maxHeight = '0';
+      });
+      document.querySelectorAll('.accordion-trigger').forEach(t => {
+        t.setAttribute('aria-expanded', 'false');
+        t.querySelector('.accordion-icon').style.transform = 'rotate(0deg)';
+      });
+      
+      // Open clicked if was closed
+      if (!isExpanded) {
+        content.style.maxHeight = content.scrollHeight + 'px';
+        trigger.setAttribute('aria-expanded', 'true');
+        icon.style.transform = 'rotate(180deg)';
+      }
+    });
+  });
+</script>

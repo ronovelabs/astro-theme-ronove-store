@@ -1,0 +1,74 @@
+---
+import type { Product } from '../types';
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+
+const sizes = ['XS', 'S', 'M', 'L', 'XL'];
+const colors = [
+  { name: 'Negro', image: 'https://images.unsplash.com/photo-1618354691373-d9c64f3c1d3f?w=80&q=80' },
+  { name: 'Azul', image: 'https://images.unsplash.com/photo-1556906781-9a412961c28c?w=80&q=80' },
+];
+---
+
+<div class="bg-black text-white p-6 md:p-8 sticky top-24">
+  <h1 class="text-2xl font-bold mb-2">{product.name}</h1>
+  <p class="text-gray-400 text-sm mb-6">{product.description}</p>
+  
+  <!-- Color Selector -->
+  <div class="mb-6">
+    <p class="text-xs text-gray-400 mb-3">COLOR:</p>
+    <div class="flex gap-3">
+      {colors.map((color) => (
+        <button class="w-12 h-12 rounded border-2 border-transparent hover:border-white transition-all overflow-hidden">
+          <img src={color.image} alt={color.name} class="w-full h-full object-cover" />
+        </button>
+      ))}
+    </div>
+  </div>
+  
+  <!-- Size Selector -->
+  <div class="mb-6">
+    <p class="text-xs text-gray-400 mb-3">TALLA:</p>
+    <div class="flex gap-2">
+      {sizes.map((size) => (
+        <button class="w-10 h-10 border border-gray-600 text-sm hover:border-white hover:bg-white hover:text-black transition-all">
+          {size}
+        </button>
+      ))}
+    </div>
+  </div>
+  
+  <!-- Quantity -->
+  <div class="mb-6">
+    <p class="text-xs text-gray-400 mb-3">CANTIDAD:</p>
+    <div class="flex items-center border border-gray-600 w-fit">
+      <button class="px-4 py-2 text-gray-400 hover:text-white transition-colors" aria-label="Disminuir">−</button>
+      <span class="px-4 py-2 min-w-[3rem] text-center">1</span>
+      <button class="px-4 py-2 text-gray-400 hover:text-white transition-colors" aria-label="Aumentar">+</button>
+    </div>
+  </div>
+  
+  <!-- Price -->
+  <div class="mb-6">
+    <div class="flex items-center gap-3">
+      {product.originalPrice && (
+        <span class="text-gray-500 line-through">${product.originalPrice.toLocaleString('es-CO')}</span>
+      )}
+      <span class="text-2xl font-bold">${product.price.toLocaleString('es-CO')}</span>
+    </div>
+  </div>
+  
+  <!-- Add to Cart -->
+  <button class="w-full bg-white text-black py-4 font-bold text-sm hover:bg-gray-200 transition-colors mb-4">
+    AGREGAR A LA BOLSA
+  </button>
+  
+  <!-- Personal Shopper -->
+  <a href="#" class="block text-center text-xs text-gray-400 hover:text-white underline transition-colors">
+    ASESORIA PERSONALIZADA
+  </a>
+</div>
